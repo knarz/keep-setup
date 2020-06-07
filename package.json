@@ -1,0 +1,17 @@
+{
+	"name": "keep-setup",
+	"version": "1.0.0",
+	"description": "Collection of scripts to setup a fresh account for testnet operation",
+	"main": "keystore.js",
+	"dependencies": {
+		"@keep-network/keep-ecdsa": ">0.15.0-pre <0.15.0-rc",
+		"@keep-network/tbtc": ">0.15.0-pre <0.15.0-rc",
+		"ethers": "^4.0.47"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Sascha Hanse <shanse@posteo.de>",
+	"license": "GPL-3.0-or-later"
+}
