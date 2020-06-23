@@ -8,7 +8,7 @@ const KeepBonding = require("@keep-network/keep-ecdsa/artifacts/KeepBonding.json
 const RandomBeaconOperator = require("@keep-network/keep-core/artifacts/KeepRandomBeaconOperator.json")
 
 if (process.argv.length < 3 || !process.argv[2]) {
-	console.error('node checkup.js address');
+	console.error('node auths.js address');
 	process.exit(1);
 }
 
@@ -24,11 +24,11 @@ async function main() {
 			process.exit(1)
 		}
 
-		const stakingContract = new ethers.Contract(TokenStaking.networks["3"].address, TokenStaking.abi, wallet);
-		const grantContract = new ethers.Contract(TokenGrant.networks["3"].address, TokenGrant.abi, wallet);
-		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, wallet);
-		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, wallet);
-		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, wallet);
+		const stakingContract = new ethers.Contract(TokenStaking.networks["3"].address, TokenStaking.abi, ip);
+		const grantContract = new ethers.Contract(TokenGrant.networks["3"].address, TokenGrant.abi, ip);
+		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, ip);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, ip);
+		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, ip);
 		const beaconOpContract = new ethers.Contract(RandomBeaconOperator.networks["3"].address, RandomBeaconOperator.abi, ip);
 
 		console.log(`Checking random beacon authorization`)
@@ -46,7 +46,7 @@ async function main() {
 		console.log(`\nAll systems authorized: ${beaconAuth && ecdsaAuth && tbtcAuth}`)
 
 	} catch(err) {
-		console.error(`Could not authorize: ${err.message}`)
+		console.error(`Could not check authorization: ${err.message}`)
 		process.exit(1)
 	}
 }
