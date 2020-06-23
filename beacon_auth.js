@@ -17,8 +17,8 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
-		const stakingContract = new ethers.Contract("0xEb2bA3f065081B6459A6784ba8b34A1DfeCc183A", TokenStaking.abi, wallet);
-		const beaconOpContract = new ethers.Contract("0x440626169759ad6598cd53558F0982b84A28Ad7a", RandomBeaconOperator.abi, wallet);
+		const stakingContract = new ethers.Contract(TokenStaking.networks["3"].address, TokenStaking.abi, wallet);
+		const beaconOpContract = new ethers.Contract(RandomBeaconOperator.networks["3"].address, RandomBeaconOperator.abi, ip);
 
 		const authOp = await stakingContract.authorizeOperatorContract(w.address, beaconOpContract.address)
 		console.log('waiting for operator authorization of random beacon')

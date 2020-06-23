@@ -24,12 +24,12 @@ async function main() {
 			process.exit(1)
 		}
 
-		const stakingContract = new ethers.Contract("0xEb2bA3f065081B6459A6784ba8b34A1DfeCc183A", TokenStaking.abi, ip);
-		const grantContract = new ethers.Contract("0xb7bc38e89acde3d34a02f63187f24f08aabdd717", TokenGrant.abi, ip);
-		const ecdsaKFContract = new ethers.Contract("0x17cadDF97A1D1123eFb7b233cB16c76C31A96e02", BondedECDSAKeepFactory.abi, ip);
-		const tbtcSysContract = new ethers.Contract("0x2b70907b5C44897030ea1369591ddcd23C5d85d6", TBTCSystem.abi, ip);
-		const keepBondingContract = new ethers.Contract("0x4368F92Db6d4CA6Dc029D5F1F902137D9b91297B", KeepBonding.abi, ip);
-		const beaconOpContract = new ethers.Contract("0x440626169759ad6598cd53558F0982b84A28Ad7a", RandomBeaconOperator.abi, ip);
+		const stakingContract = new ethers.Contract(TokenStaking.networks["3"].address, TokenStaking.abi, wallet);
+		const grantContract = new ethers.Contract(TokenGrant.networks["3"].address, TokenGrant.abi, wallet);
+		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, wallet);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, wallet);
+		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, wallet);
+		const beaconOpContract = new ethers.Contract(RandomBeaconOperator.networks["3"].address, RandomBeaconOperator.abi, ip);
 
 		console.log(`Checking random beacon authorization`)
 		const beaconAuth = await stakingContract.isAuthorizedForOperator(addr, beaconOpContract.address)
