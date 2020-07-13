@@ -1,7 +1,8 @@
 const fs = require('fs');
 const ethers = require('ethers');
 
-const KeepBonding = require("@keep-network/keep-ecdsa/artifacts/KeepBonding.json")
+const BondedECDSAKeepFactory = require("@keep-network/keep-ecdsa/artifacts/BondedECDSAKeepFactory.json")
+const TBTCSystem = require("@keep-network/tbtc/artifacts/TBTCSystem.json")
 
 if (process.argv.length < 3 || !process.argv[2]) {
 	console.error('node access.js [password]');
@@ -16,11 +17,12 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
-		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, wallet);
+		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, wallet);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, wallet);
 
-		const deposit = await keepBondingContract.deposit(w.address, {value: ethers.utils.parseEther('30.0')})
-		console.log(`depositing eth`)
-		await deposit.wait()
+		const regMem = await ecdsaKFContract.registerMemberCandidate(tbtcSysContract.address)
+		console.log(`registering for app ${tbtcSysContract.address}`)
+		await regMem.wait()
 
 	} catch(err) {
 		console.error(`Could not authorize: ${err.message}`)

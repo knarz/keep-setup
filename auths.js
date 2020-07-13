@@ -31,6 +31,14 @@ async function main() {
 		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, ip);
 		const beaconOpContract = new ethers.Contract(RandomBeaconOperator.networks["3"].address, RandomBeaconOperator.abi, ip);
 
+		console.log(`Is operator in sortition pool up to date?`)
+		try {
+			const sortUpToDate = await ecdsaKFContract.isOperatorUpToDate(addr, tbtcSysContract.address)
+			console.log(`${sortUpToDate}`)
+		} catch (err) {
+			console.log(err.message)
+		}
+
 		console.log(`Checking random beacon authorization`)
 		const beaconAuth = await stakingContract.isAuthorizedForOperator(addr, beaconOpContract.address)
 		console.log(`beacon authorization: ${beaconAuth}`)
@@ -38,6 +46,9 @@ async function main() {
 		console.log(`Checking ECDSA/tBTC authorizations`)
 		const ecdsaAuth = await stakingContract.isAuthorizedForOperator(addr, ecdsaKFContract.address)
 		console.log(`bonded ECDSA Keep factory authorization: ${ecdsaAuth}`)
+
+		const opEg = await ecdsaKFContract.isOperatorEligible(addr, tbtcSysContract.address)
+		console.log(`operator eligible for tbtc sys contract: ${opEg}`)
 
 		const sortitionPoolAddress = await ecdsaKFContract.getSortitionPool(tbtcSysContract.address)
 		const tbtcAuth = await keepBondingContract.hasSecondaryAuthorization(addr, sortitionPoolAddress)
