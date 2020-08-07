@@ -18,7 +18,7 @@ async function main() {
 
 		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, wallet);
 
-		const deposit = await keepBondingContract.deposit(w.address, {value: ethers.utils.parseEther('30.0')})
+		const deposit = await keepBondingContract.deposit(w.address, {value: ethers.utils.parseEther('20.0')})
 		console.log(`depositing eth`)
 		await deposit.wait()
 

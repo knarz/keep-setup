@@ -7,7 +7,7 @@ const BondedECDSAKeepFactory = require("@keep-network/keep-ecdsa/artifacts/Bonde
 const TBTCSystem = require("@keep-network/tbtc/artifacts/TBTCSystem.json")
 const KeepBonding = require("@keep-network/keep-ecdsa/artifacts/KeepBonding.json")
 
-const minStake = ethers.utils.bigNumberify("100000000000000000000000");
+const minStake = ethers.BigNumber.from("100000000000000000000000");
 
 if (process.argv.length < 3 || !process.argv[2]) {
 	console.error('node access.js [password]');
