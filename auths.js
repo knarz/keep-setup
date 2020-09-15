@@ -24,12 +24,12 @@ async function main() {
 			process.exit(1)
 		}
 
-		const stakingContract = new ethers.Contract(TokenStaking.networks["3"].address, TokenStaking.abi, ip);
-		const grantContract = new ethers.Contract(TokenGrant.networks["3"].address, TokenGrant.abi, ip);
-		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, ip);
-		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, ip);
-		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, ip);
-		const beaconOpContract = new ethers.Contract(RandomBeaconOperator.networks["3"].address, RandomBeaconOperator.abi, ip);
+		const stakingContract = new ethers.Contract(TokenStaking.networks["1"].address, TokenStaking.abi, ip);
+		const grantContract = new ethers.Contract(TokenGrant.networks["1"].address, TokenGrant.abi, ip);
+		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
+		const keepBondingContract = new ethers.Contract(KeepBonding.networks["1"].address, KeepBonding.abi, ip);
+		const beaconOpContract = new ethers.Contract(RandomBeaconOperator.networks["1"].address, RandomBeaconOperator.abi, ip);
 
 		console.log(`Is operator in sortition pool up to date?`)
 		try {

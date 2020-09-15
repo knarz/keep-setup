@@ -9,9 +9,9 @@ async function main() {
 	try {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 
-		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, ip);
-		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["3"].address, TBTCDepositToken.abi, ip);
-		const vendingContract = new ethers.Contract(VendingMachine.networks["3"].address, VendingMachine.abi, ip);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
+		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);
+		const vendingContract = new ethers.Contract(VendingMachine.networks["1"].address, VendingMachine.abi, ip);
 
 		const transfers = await tdtContract.queryFilter(tdtContract.filters.Transfer(null, vendingContract.address));
 		const tokenIDs = transfers.map(t => { return t.args[2].toHexString()});

@@ -17,7 +17,7 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
-		const serviceContract = new ethers.Contract(RandomBeaconService.networks["3"].address, RandomBeaconImpl.abi, wallet);
+		const serviceContract = new ethers.Contract(RandomBeaconService.networks["1"].address, RandomBeaconImpl.abi, wallet);
 		const relayReqIdEv = serviceContract.filters.RelayEntryRequested();
 
 		const ret = new Promise((res, rej) => {

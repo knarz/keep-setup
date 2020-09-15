@@ -22,11 +22,11 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
-		const stakingContract = new ethers.Contract(TokenStaking.networks["3"].address, TokenStaking.abi, wallet);
-		const grantContract = new ethers.Contract(TokenGrant.networks["3"].address, TokenGrant.abi, wallet);
-		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, wallet);
-		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, wallet);
-		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, wallet);
+		const stakingContract = new ethers.Contract(TokenStaking.networks["1"].address, TokenStaking.abi, wallet);
+		const grantContract = new ethers.Contract(TokenGrant.networks["1"].address, TokenGrant.abi, wallet);
+		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, wallet);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, wallet);
+		const keepBondingContract = new ethers.Contract(KeepBonding.networks["1"].address, KeepBonding.abi, wallet);
 		const grants = await grantContract.getGrants(wallet.address);
 
 		let idx = -1;

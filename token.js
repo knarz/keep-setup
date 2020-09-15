@@ -7,7 +7,7 @@ async function main() {
 	try {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 
-		const tbtcTokenContract = new ethers.Contract(TBTCToken.networks["3"].address, TBTCToken.abi, ip);
+		const tbtcTokenContract = new ethers.Contract(TBTCToken.networks["1"].address, TBTCToken.abi, ip);
 
 		const ts = await tbtcTokenContract.name()
 		console.log(`ts ${ts}`)

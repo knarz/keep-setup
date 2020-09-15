@@ -32,11 +32,11 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 		const opAddr = process.argv[2].toLowerCase();
 
-		//const keepFactory = new ethers.Contract(TBTCSystem.networks["3"].address, BondedECDSAKeepFactory.abi, ip);
-		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["3"].address, BondedECDSAKeepFactory.abi, ip);
-		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["3"].address, TBTCSystem.abi, ip);
-		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["3"].address, TBTCDepositToken.abi, ip);
-		const depositLogContract = new ethers.Contract(TBTCSystem.networks["3"].address, DepositLog.abi, ip);
+		//const keepFactory = new ethers.Contract(TBTCSystem.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
+		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
+		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
+		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);
+		const depositLogContract = new ethers.Contract(TBTCSystem.networks["1"].address, DepositLog.abi, ip);
 		
 		const keeps = await ecdsaKFContract.queryFilter(ecdsaKFContract.filters.BondedECDSAKeepCreated());
 		const targetKeeps = keeps.filter(ev => { return ev.args[1].filter(ms => { return ms.toLowerCase() === opAddr}).length > 0 }).map(ev => { return ev.args[0]; });

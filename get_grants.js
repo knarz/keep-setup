@@ -18,7 +18,7 @@ async function main() {
 			process.exit(1)
 		}
 
-		const grantContract = new ethers.Contract(TokenGrant.networks["3"].address, TokenGrant.abi, ip);
+		const grantContract = new ethers.Contract(TokenGrant.networks["1"].address, TokenGrant.abi, ip);
 		const grants = await grantContract.getGrants(addr);
 
 		let amount;

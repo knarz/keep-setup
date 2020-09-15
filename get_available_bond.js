@@ -18,7 +18,7 @@ async function main() {
 			process.exit(1)
 		}
 
-		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, ip);
+		const keepBondingContract = new ethers.Contract(KeepBonding.networks["1"].address, KeepBonding.abi, ip);
 
 		const available = await keepBondingContract.unbondedValue(addr)
 		console.log(`available for bonding: ${ethers.utils.formatEther(available)}`)

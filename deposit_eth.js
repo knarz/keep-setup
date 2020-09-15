@@ -16,9 +16,9 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
-		const keepBondingContract = new ethers.Contract(KeepBonding.networks["3"].address, KeepBonding.abi, wallet);
+		const keepBondingContract = new ethers.Contract(KeepBonding.networks["1"].address, KeepBonding.abi, wallet);
 
-		const deposit = await keepBondingContract.deposit(w.address, {value: ethers.utils.parseEther('20.0')})
+		const deposit = await keepBondingContract.deposit(w.address, {value: ethers.utils.parseEther('100.0')})
 		console.log(`depositing eth`)
 		await deposit.wait()
 
