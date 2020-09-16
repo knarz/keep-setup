@@ -7,7 +7,7 @@ const VendingMachine = require("@keep-network/tbtc/artifacts/VendingMachine.json
 
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
 		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);

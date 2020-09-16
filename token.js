@@ -5,7 +5,7 @@ const TBTCToken = require("@keep-network/tbtc/artifacts/TBTCToken.json")
 async function main() {
 	let wallet
 	try {
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 
 		const tbtcTokenContract = new ethers.Contract(TBTCToken.networks["1"].address, TBTCToken.abi, ip);
 

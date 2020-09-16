@@ -6,7 +6,7 @@ const TBTCSystem = require("@keep-network/tbtc/artifacts/TBTCSystem.json")
 async function main() {
 	let wallet
 	try {
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 
 		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);

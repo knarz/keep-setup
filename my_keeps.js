@@ -11,7 +11,7 @@ if (process.argv.length < 3 || !process.argv[2]) {
 
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 		const opAddr = process.argv[2].toLowerCase();
 
 		//const keepFactory = new ethers.Contract(TBTCSystem.networks["1"].address, BondedECDSAKeepFactory.abi, ip);

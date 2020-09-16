@@ -8,7 +8,7 @@ try {
 	console.error(`Could open wallet: ${err.message}`)
 }
 
-https.get(`https://us-central1-keep-test-f3e0.cloudfunctions.net/keep-faucet-ropsten?account=0x${w.address}`, (r) => {
+https.get(`https://us-central1-keep-test-f3e0.cloudfunctions.net/keep-faucet-homestead?account=0x${w.address}`, (r) => {
   let data = '';
 
   r.on('data', (chunk) => {

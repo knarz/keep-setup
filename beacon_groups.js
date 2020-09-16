@@ -5,7 +5,7 @@ const KeepRandomBeaconOperator = require("@keep-network/keep-core/artifacts/Keep
 async function main() {
 	let wallet
 	try {
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 
 		const randomOpContract = new ethers.Contract(KeepRandomBeaconOperator.networks["1"].address, KeepRandomBeaconOperator.abi, ip);
 

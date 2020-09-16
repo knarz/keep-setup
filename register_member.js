@@ -14,7 +14,7 @@ async function main() {
 	try {
 		const j = fs.readFileSync('wallet.json', 'utf8');
 		const w  = await new ethers.Wallet.fromEncryptedJson(j, process.argv[2]);
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
 		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, wallet);

@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const ethers = require('ethers');
 
-const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 
 let w
 try {

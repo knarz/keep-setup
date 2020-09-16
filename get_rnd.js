@@ -14,7 +14,7 @@ async function main() {
 	try {
 		const j = fs.readFileSync('wallet.json', 'utf8');
 		const w  = await new ethers.Wallet.fromEncryptedJson(j, process.argv[2]);
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
 		const serviceContract = new ethers.Contract(RandomBeaconService.networks["1"].address, RandomBeaconImpl.abi, wallet);
@@ -23,7 +23,7 @@ async function main() {
 		const ret = new Promise((res, rej) => {
 			serviceContract.on("*", function (ev) {
 				if (ev.event === 'RelayEntryGenerated') {
-					console.log(`[https://ropsten.etherscan.io/tx/${ev.transactionHash}] generated ${ev.args[0]}`);
+					console.log(`[https://homestead.etherscan.io/tx/${ev.transactionHash}] generated ${ev.args[0]}`);
 					serviceContract.removeAllListeners();
 					res({txHash: ev.transactionHash, num: ev.args[1]});
 				}

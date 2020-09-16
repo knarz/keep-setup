@@ -13,7 +13,7 @@ async function main() {
 	try {
 		const j = fs.readFileSync('wallet.json', 'utf8');
 		const w  = await new ethers.Wallet.fromEncryptedJson(j, process.argv[2]);
-		const ip = new ethers.providers.InfuraProvider('ropsten', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 		wallet = w.connect(ip);
 
 		const keepBondingContract = new ethers.Contract(KeepBonding.networks["1"].address, KeepBonding.abi, wallet);
