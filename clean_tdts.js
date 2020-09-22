@@ -41,7 +41,6 @@ async function main() {
 				console.log(`failed to call notifyFundingTimedOut: ${err}`);
 			}
 		} 
-
 	} catch(err) {
 		console.error(`Could not clean: ${err.message}`)
 		process.exit(1)
