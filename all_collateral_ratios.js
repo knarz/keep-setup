@@ -20,7 +20,7 @@ async function main() {
 			const k = new ethers.Contract(await d.keepAddress(), BondedECDSAKeep.abi, ip);
 			const r = await d.collateralizationPercentage()
 			const depositState = states[await d.currentState()];
-			console.log(`TDT ${dAddr} (${depositState}) of ${k.address} has ratio ${r}`)
+			console.log(`TDT ${dAddr} (${depositState}) (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) of ${k.address} has ratio ${r}`)
 		}
 	} catch(err) {
 		console.error(`Could not get ratios: ${err.message}`)
