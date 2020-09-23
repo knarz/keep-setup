@@ -1,4 +1,5 @@
 {
   "infura_secret": "",
-  "operator_address": ""
+  "operator_address": "",
+  "network": ""
 }

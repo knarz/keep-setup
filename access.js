@@ -22,7 +22,7 @@ async function main() {
 	try {
 		const j = fs.readFileSync('wallet.json', 'utf8');
 		const w  = await new ethers.Wallet.fromEncryptedJson(j, process.argv[2]);
-		const ip = new ethers.providers.InfuraProvider('homestead', infura);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 		wallet = w.connect(ip);
 
 		const stakingContract = new ethers.Contract(TokenStaking.networks["1"].address, TokenStaking.abi, wallet);

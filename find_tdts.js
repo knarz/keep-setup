@@ -9,6 +9,7 @@ const Deposit = require("@keep-network/tbtc/artifacts/Deposit.json");
 
 const config = require('./config')
 const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
 
 
 if (process.argv.length < 3 || !process.argv[2]) {
@@ -33,7 +34,7 @@ const states = [
 
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', infura);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 		const opAddr = process.argv[2].toLowerCase();
 
 		//const keepFactory = new ethers.Contract(TBTCSystem.networks["1"].address, BondedECDSAKeepFactory.abi, ip);

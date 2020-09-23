@@ -2,10 +2,14 @@ const ethers = require('ethers');
 
 const KeepRandomBeaconOperator = require("@keep-network/keep-core/artifacts/KeepRandomBeaconOperator.json")
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 async function main() {
 	let wallet
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 
 		const randomOpContract = new ethers.Contract(KeepRandomBeaconOperator.networks["1"].address, KeepRandomBeaconOperator.abi, ip);
 

@@ -3,10 +3,14 @@ const ethers = require('ethers');
 const BondedECDSAKeepFactory = require("@keep-network/keep-ecdsa/artifacts/BondedECDSAKeepFactory.json")
 const TBTCSystem = require("@keep-network/tbtc/artifacts/TBTCSystem.json")
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 async function main() {
 	let wallet
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 
 		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);

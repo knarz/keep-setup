@@ -2,9 +2,13 @@ const ethers = require('ethers');
 
 const TokenStaking = require("@keep-network/keep-core/artifacts/TokenStaking.json")
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 
 		const stakingContract = new ethers.Contract(TokenStaking.networks["1"].address, TokenStaking.abi, ip)
 

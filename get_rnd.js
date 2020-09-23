@@ -4,6 +4,10 @@ const ethers = require('ethers');
 const RandomBeaconImpl = require("@keep-network/keep-core/artifacts/KeepRandomBeaconServiceImplV1.json")
 const RandomBeaconService = require("@keep-network/keep-core/artifacts/KeepRandomBeaconService.json")
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 if (process.argv.length < 3 || !process.argv[2]) {
 	console.error('node get_rnd.js [password]');
 	process.exit(1);
@@ -14,7 +18,7 @@ async function main() {
 	try {
 		const j = fs.readFileSync('wallet.json', 'utf8');
 		const w  = await new ethers.Wallet.fromEncryptedJson(j, process.argv[2]);
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 		wallet = w.connect(ip);
 
 		const serviceContract = new ethers.Contract(RandomBeaconService.networks["1"].address, RandomBeaconImpl.abi, wallet);

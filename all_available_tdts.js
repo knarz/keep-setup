@@ -5,9 +5,13 @@ const TBTCDepositToken = require("@keep-network/tbtc/artifacts/TBTCDepositToken.
 const Deposit = require("@keep-network/tbtc/artifacts/Deposit.json");
 const VendingMachine = require("@keep-network/tbtc/artifacts/VendingMachine.json");
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
 		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);
