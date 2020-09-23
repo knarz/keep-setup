@@ -29,7 +29,7 @@ async function main() {
 			const ebal = await ip.getBalance(op[0])
 			const kbal = op[1]
 			const ratio = ebal.eq(0) ? ethers.BigNumber.from(0) : kbal.div(ebal)
-			console.log(`${op[0]} stakes ${ethers.utils.formatEther(kbal)} KEEP and has ${ethers.utils.formatEther(ebal)} ETH`)
+			//console.log(`${op[0]} stakes ${ethers.utils.formatEther(kbal)} KEEP and has ${ethers.utils.formatEther(ebal)} ETH`)
 			if (ratio < threshold) {
 				numBT++
 			}
@@ -39,7 +39,7 @@ async function main() {
 			staked = staked.add(kbal)
 
 			try {
-				//const bg = await auths_beacon(ip, op[0])
+				const bg = await auths_beacon(ip, op[0])
 				const eg = await auths_ecdsa(ip, op[0])
 
 				if (bg) { beaconGood.add(op[0]) }
@@ -47,6 +47,7 @@ async function main() {
 					ecdsaGood.add(op[0])
 					const available = await keepBondingContract.unbondedValue(op[0])
 					totalBond = totalBond.add(available)
+					console.log(`${op[0]} (${ethers.utils.formatEther(ebal)} ETH) stakes ${ethers.utils.formatEther(kbal)} KEEP and ${ethers.utils.formatEther(available)} ETH for bonding`)
 				}
 				if (bg && eg) { allGood.add(op[0]) }
 			} catch (err) {
