@@ -7,6 +7,10 @@ const TBTCDepositToken = require("@keep-network/tbtc/artifacts/TBTCDepositToken.
 const DepositLog = require("@keep-network/tbtc/artifacts/DepositLog.json");
 const Deposit = require("@keep-network/tbtc/artifacts/Deposit.json");
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+
+
 if (process.argv.length < 3 || !process.argv[2]) {
 	console.error('node find_tdts.js [operator]');
 	process.exit(1);
@@ -29,7 +33,7 @@ const states = [
 
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider('homestead', infura);
 		const opAddr = process.argv[2].toLowerCase();
 
 		//const keepFactory = new ethers.Contract(TBTCSystem.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
@@ -37,7 +41,7 @@ async function main() {
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
 		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);
 		const depositLogContract = new ethers.Contract(TBTCSystem.networks["1"].address, DepositLog.abi, ip);
-		
+
 		const keeps = await ecdsaKFContract.queryFilter(ecdsaKFContract.filters.BondedECDSAKeepCreated());
 		const targetKeeps = keeps.filter(ev => { return ev.args[1].filter(ms => { return ms.toLowerCase() === opAddr}).length > 0 }).map(ev => { return ev.args[0]; });
 
