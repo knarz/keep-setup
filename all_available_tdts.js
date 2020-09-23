@@ -1,9 +1,9 @@
 const ethers = require('ethers');
 
-const TBTCSystem = require('@keep-network/tbtc/artifacts/TBTCSystem.json');
-const TBTCDepositToken = require('@keep-network/tbtc/artifacts/TBTCDepositToken.json');
-const Deposit = require('@keep-network/tbtc/artifacts/Deposit.json');
-const VendingMachine = require('@keep-network/tbtc/artifacts/VendingMachine.json');
+const TBTCSystem = require("@keep-network/tbtc/artifacts/TBTCSystem.json")
+const TBTCDepositToken = require("@keep-network/tbtc/artifacts/TBTCDepositToken.json");
+const Deposit = require("@keep-network/tbtc/artifacts/Deposit.json");
+const VendingMachine = require("@keep-network/tbtc/artifacts/VendingMachine.json");
 
 async function main() {
 	try {
@@ -33,6 +33,8 @@ async function main() {
 	}
 }
 
-main().catch((err) => {
-  console.error(err);
-});
+main().catch(err => {
+	console.error(err);
+})
+
+
