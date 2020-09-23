@@ -18,13 +18,21 @@ async function main() {
 
     let index = 1;
 		for (let addr of tokenIDs) {
+
 			const d = new ethers.Contract(addr, Deposit.abi, ip);
 			const depositActive = await d.inActive();
 			const vOwns = (await tdtContract.ownerOf(d.address)) === vendingContract.address;
 
+<<<<<<< HEAD
 			if (depositActive && vOwns)
         console.log(`${index}. TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active and owned by the vending machine`);
         index++
+=======
+			if (depositActive && vOwns) {
+				console.log(`${index}. TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active and owned by the vending machine`);
+				index++
+			}
+>>>>>>> 2e4e667ae292d43a6c19045dda9291f19e6b5c69
 		}
 
 	} catch(err) {
