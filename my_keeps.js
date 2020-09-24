@@ -23,8 +23,9 @@ async function main() {
 
 		for (let addr of targetKeeps) {
 			const k = new ethers.Contract(await addr, BondedECDSAKeep.abi, ip);
+			const bond = (await k.checkBondAmount()).div(3)
 			const active = (await k.isActive()) ? "active" : "inactive";
-			console.log(`part of keep at ${addr}. Keep is: ${active}`);
+			console.log(`part of keep at ${addr} bonding ${ethers.utils.formatEther(bond)}. Keep is: ${active}`);
 		}
 
 	} catch(err) {
