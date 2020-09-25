@@ -14,9 +14,9 @@ async function main() {
 		const vendingContract = new ethers.Contract(VendingMachine.networks["1"].address, VendingMachine.abi, ip);
 
 		const transfers = await tdtContract.queryFilter(tdtContract.filters.Transfer(null, vendingContract.address));
-		const tokenIDs = transfers.map(t => { return t.args[2].toHexString()});
+    const tokenIDs = transfers.map(t => { return t.args[2].toHexString()});
 
-		let index = 1;
+    let index = 1;
 		for (let addr of tokenIDs) {
 			const d = new ethers.Contract(addr, Deposit.abi, ip);
 			const depositActive = await d.inActive();
