@@ -23,8 +23,8 @@ async function main() {
 			const vOwns = (await tdtContract.ownerOf(d.address)) === vendingContract.address;
 
 			if (depositActive && vOwns)
-        console.log(`${index}. TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active and owned by the vending machine`);
-        index++
+	console.log(`${index}. TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active and owned by the vending machine`);
+	index++
 		}
 
 	} catch(err) {
