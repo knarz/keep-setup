@@ -16,13 +16,15 @@ async function main() {
 		const transfers = await tdtContract.queryFilter(tdtContract.filters.Transfer(null, vendingContract.address));
 		const tokenIDs = transfers.map(t => { return t.args[2].toHexString()});
 
+		let index = 1;
 		for (let addr of tokenIDs) {
 			const d = new ethers.Contract(addr, Deposit.abi, ip);
 			const depositActive = await d.inActive();
 			const vOwns = (await tdtContract.ownerOf(d.address)) === vendingContract.address;
+			const r = await d.collateralizationPercentage()
 
 			if (depositActive && vOwns)
-				console.log(`TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active and owned by the vending machine`);
+				console.log(`${index++} TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active (ratio ${r}) and owned by the vending machine`);
 		}
 
 	} catch(err) {
