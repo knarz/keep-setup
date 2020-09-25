@@ -24,7 +24,7 @@ async function main() {
 			const r = await d.collateralizationPercentage()
 
 			if (depositActive && vOwns)
-				console.log(`${index++} TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active (ratio ${r}) and owned by the vending machine`);
+				console.log(`${index++}. TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) is active (ratio ${r}) and owned by the vending machine`);
 		}
 
 	} catch(err) {
