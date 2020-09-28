@@ -6,7 +6,7 @@ const Deposit = require("@keep-network/tbtc/artifacts/Deposit.json");
 const states = require('./states')
 
 if (process.argv.length < 3 || !process.argv[2]) {
-	console.error('node tdt_to_keep.js [tdt]');
+	console.error('node tdt_status.js [tdt]');
 	process.exit(1);
 }
 
@@ -28,8 +28,4 @@ async function main() {
 main().catch(err => {
 	console.error(err);
 })
-
-
-
-
 

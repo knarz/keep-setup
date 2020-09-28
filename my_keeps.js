@@ -14,12 +14,13 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
 		const opAddr = process.argv[2].toLowerCase();
 
-		//const keepFactory = new ethers.Contract(TBTCSystem.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
 		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
 		
 		const keeps = await ecdsaKFContract.queryFilter(ecdsaKFContract.filters.BondedECDSAKeepCreated());
 		const targetKeeps = keeps.filter(ev => { return ev.args[1].filter(ms => { return ms.toLowerCase() === opAddr}).length > 0 }).map(ev => { return ev.args[0]; });
+
+		console.log(`Total keeps ${keeps.length}/${targetKeeps.length} keeps for target`)
 
 		for (let addr of targetKeeps) {
 			const k = new ethers.Contract(await addr, BondedECDSAKeep.abi, ip);
