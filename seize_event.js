@@ -3,6 +3,10 @@ const ethers = require('ethers');
 const TokenStaking = require("@keep-network/keep-core/artifacts/TokenStaking.json");
 const KeepRandomBeaconOperator = require("@keep-network/keep-core/artifacts/KeepRandomBeaconOperator.json");
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 if (process.argv.length < 3 || !process.argv[2]) {
 	console.error('node seize_event.js [address]');
 	process.exit(1);
@@ -11,7 +15,7 @@ if (process.argv.length < 3 || !process.argv[2]) {
 async function main() {
 	let wallet
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 		let addr
 		try {
 			addr = ethers.utils.getAddress(process.argv[2])

@@ -3,6 +3,10 @@ const ethers = require('ethers');
 
 const KeepBonding = require("@keep-network/keep-ecdsa/artifacts/KeepBonding.json")
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 if (process.argv.length < 3 || !process.argv[2]) {
 	console.error('node access.js [password]');
 	process.exit(1);
@@ -13,7 +17,7 @@ async function main() {
 	try {
 		const j = fs.readFileSync('wallet.json', 'utf8');
 		const w  = await new ethers.Wallet.fromEncryptedJson(j, process.argv[2]);
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 		wallet = w.connect(ip);
 
 		const keepBondingContract = new ethers.Contract(KeepBonding.networks["1"].address, KeepBonding.abi, wallet);

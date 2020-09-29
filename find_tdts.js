@@ -7,6 +7,10 @@ const TBTCDepositToken = require("@keep-network/tbtc/artifacts/TBTCDepositToken.
 const DepositLog = require("@keep-network/tbtc/artifacts/DepositLog.json");
 const Deposit = require("@keep-network/tbtc/artifacts/Deposit.json");
 
+const config = require('./config')
+const infura = config.infura_secret || process.env.INFURA_API;
+const network = config.network || 'homestead'
+
 const states = require('./states.js')
 
 if (process.argv.length < 3 || !process.argv[2]) {
@@ -16,7 +20,7 @@ if (process.argv.length < 3 || !process.argv[2]) {
 
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider('homestead', process.env.INFURA_API);
+		const ip = new ethers.providers.InfuraProvider(network, infura);
 		const opAddr = process.argv[2].toLowerCase();
 
 		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
