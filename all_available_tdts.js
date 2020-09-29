@@ -7,18 +7,17 @@ const VendingMachine = require("@keep-network/tbtc/artifacts/VendingMachine.json
 
 const config = require('./config')
 const infura = config.infura_secret || process.env.INFURA_API;
-const network = config.network || 'homestead'
 
 async function main() {
 	try {
-		const ip = new ethers.providers.InfuraProvider(network, infura);
+		const ip = new ethers.providers.InfuraProvider('homestead', infura);
 
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
 		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);
 		const vendingContract = new ethers.Contract(VendingMachine.networks["1"].address, VendingMachine.abi, ip);
 
 		const transfers = await tdtContract.queryFilter(tdtContract.filters.Transfer(null, vendingContract.address));
-		const tokenIDs = transfers.map(t => { return t.args[2].toHexString()});
+		const tokenIDs = transfers.map(t => { return t.args[2].toHexString() });
 		let index = 1;
 		for (let addr of tokenIDs) {
 
@@ -32,7 +31,7 @@ async function main() {
 			}
 		}
 
-	} catch(err) {
+	} catch (err) {
 		console.error(`Could not check for TDTs: ${err.message}`)
 		process.exit(1)
 	}

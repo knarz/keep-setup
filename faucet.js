@@ -2,22 +2,16 @@ const fs = require('fs');
 const https = require('https');
 const ethers = require('ethers');
 
-const config = require('./config')
-const infura = config.infura_secret || process.env.INFURA_API;
-const network = config.network || 'homestead'
-
-const ip = new ethers.providers.InfuraProvider(network, infura);
-
 let w
 try {
-	w = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
-} catch(err) {
-	console.error(`Could open wallet: ${err.message}`)
+  w = JSON.parse(fs.readFileSync('wallet.json', 'utf8'));
+} catch (err) {
+  console.error(`Could open wallet: ${err.message}`)
 }
 
 const data = JSON.stringify({
-	address: `0x${w.address}`,
-	amount: 1000000000000000000
+  address: `0x${w.address}`,
+  amount: 1000000000000000000
 })
 
 const h = 'api.bitaps.com';
@@ -26,8 +20,8 @@ const p = '/eth/testnet/v1/faucet/send/payment';
 console.log(`Getting testnet eth via ${h}${p}`);
 
 const r = https.request({
-	hostname: h,
-	port: 443,
+  hostname: h,
+  port: 443,
   path: p,
   method: 'POST',
   headers: {
@@ -43,10 +37,10 @@ const r = https.request({
 
   res.on('end', () => {
     const ret = JSON.parse(data);
-		console.log(`waiting for ${ret.tx_hash}`);
-		ip.once(ret.tx_hash, (receipt) => {
-			console.log('tx confirmed')
-		})
+    console.log(`waiting for ${ret.tx_hash}`);
+    ip.once(ret.tx_hash, (receipt) => {
+      console.log('tx confirmed')
+    })
   });
 })
 
