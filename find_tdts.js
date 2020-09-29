@@ -23,7 +23,6 @@ async function main() {
 		const ip = new ethers.providers.InfuraProvider(network, infura);
 		const opAddr = process.argv[2].toLowerCase();
 
-		//const keepFactory = new ethers.Contract(TBTCSystem.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
 		const ecdsaKFContract = new ethers.Contract(BondedECDSAKeepFactory.networks["1"].address, BondedECDSAKeepFactory.abi, ip);
 		const tbtcSysContract = new ethers.Contract(TBTCSystem.networks["1"].address, TBTCSystem.abi, ip);
 		const tdtContract = new ethers.Contract(TBTCDepositToken.networks["1"].address, TBTCDepositToken.abi, ip);
@@ -37,15 +36,14 @@ async function main() {
 			const tdt = await depositLogContract.queryFilter(depositLogContract.filters.Created(null, addr));
 			if (tdt.length < 1) { continue; }
 			const d = new ethers.Contract(tdt[0].args[0], Deposit.abi, ip);
+			const r = await d.collateralizationPercentage()
 			const depositState = states[await d.currentState()];
-			//const keepActive = (await k.isActive()) ? "active" : "inactive";
-			//const depositActive = (await d.inActive()) ? "active" : "inactive";
 
-			console.log(`keep ${addr} manages TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) with state: ${depositState}`);
+			console.log(`keep ${addr} manages TDT ${d.address} (${ethers.utils.formatEther(await d.lotSizeTbtc())} tBTC) | has ratio ${r} with state: ${depositState}`);
 		}
 
 	} catch(err) {
-		console.error(`Could not authorize: ${err.message}`)
+		console.error(`Could not find TDTs: ${err.message}`)
 		process.exit(1)
 	}
 }
@@ -53,4 +51,3 @@ async function main() {
 main().catch(err => {
 	console.error(err);
 })
-

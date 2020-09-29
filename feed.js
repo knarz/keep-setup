@@ -63,9 +63,6 @@ async function main() {
 		console.log(`Of ${operators.length} operators ${allGood.size} have done all the required on-chain setup for both beacon and ecdsa`)
 		console.log(`Of ${operators.length} operators ${beaconGood.size} have done all the required on-chain setup for beacon`)
 		console.log(`Of ${operators.length} operators ${ecdsaGood.size} have done all the required on-chain setup for ecdsa`)
-		console.log(`All: ${[...allGood]}`)
-		console.log(`Beacon: ${[...beaconGood]}`)
-		console.log(`ECDSA: ${[...ecdsaGood]}`)
 		console.log(`available for bonding: ${ethers.utils.formatEther(totalBond)}`)
 
 	} catch(err) {

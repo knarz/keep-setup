@@ -5,6 +5,10 @@ const KeepRandomBeaconOperator = require("@keep-network/keep-core/artifacts/Keep
 const config = require('./config')
 const infura = config.infura_secret || process.env.INFURA_API;
 const network = config.network || 'homestead'
+if (process.argv.length < 3 || !process.argv[2]) {
+	console.error('node beacon_groups.js [opAddr]');
+	process.exit(1);
+}
 
 async function main() {
 	let wallet
@@ -15,19 +19,12 @@ async function main() {
 
 		const events = await randomOpContract.queryFilter(randomOpContract.filters.DkgResultSubmittedEvent());
 		const args = events.map((e) => { return e.args })
-		//console.log(args)
-		//console.log(KeepRandomBeaconOperator.networks["1"].address)
-		//console.log(await randomOpContract.submittedTickets())
-		//console.log(await randomOpContract.selectedParticipants())
 
 		let mGroups = new Map();
 		for (a of args) {
-			//console.log(`isGroupRegistered() = ${await randomOpContract.isGroupRegistered(a.groupPubKey)}`)
-			//console.log(`isStaleGroup() = ${await randomOpContract.isStaleGroup(a.groupPubKey)}`)
 			const members = await randomOpContract.getGroupMembers(a.groupPubKey)
-			const target = "0x49b73ef45A462bcAf968b3ba34918080584c4191"
-			//const target = "0xea76c3bc8c659391464c68547255cfa955b19ea4"
-			const found = members.filter((m) => { return m.toLowerCase() === target.toLowerCase()}).length > 0
+			const target = process.argv[2];
+			const found = members.filter((m) => { return m.toLowerCase() === target.toLowerCase() }).length > 0
 			if (found)
 				console.log(`${target} is part of this group ${a.groupPubKey}`)
 			let mset = new Set();
@@ -39,11 +36,11 @@ async function main() {
 			console.log(`members.length ${members.length} vs mset.size ${mset.size}`);
 		}
 
-		console.log(mGroups);
+		//console.log(mGroups);
 		//console.log(slashEvents.size);
 
-	} catch(err) {
-		console.error(`Could not authorize: ${err.message}`)
+	} catch (err) {
+		console.error(`Could not check beacon groups: ${err.message}`)
 		process.exit(1)
 	}
 }
@@ -51,7 +48,4 @@ async function main() {
 main().catch(err => {
 	console.error(err);
 })
-
-
-
 
